@@ -57,12 +57,12 @@ int main(int argc, char** argv) {
 
     //arvore->imprimeArvore(1);
     //arvore->imprimeArvore(2);
-    int x = -1;
-    if(arvore->busca(722).has_value()){
-        x = arvore->busca(5).has_value();
+    double x = -1;
+    if(arvore->media(41)){
+        x = arvore->media(41).value();
     }
 
-    std::cout << "media: " << arvore->media(41) << std::endl;
+    std::cout << "media: " << x << std::endl;
     std::cout << arvore->enesimoElemento(4) << "\n";
     
 

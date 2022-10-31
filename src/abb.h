@@ -21,7 +21,7 @@ class abb {
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
 
-        std::optional<int> busca(int x);
+        std::optional<abb*> busca(int x);
         bool inserir(int x);
         bool remover(int x);
 
@@ -31,7 +31,7 @@ class abb {
 
         int mediana();
 
-        double media(int x);
+        std::optional<double> media(int x);
 
         bool ehCheia();
 

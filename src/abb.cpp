@@ -89,8 +89,8 @@ void abb::imprimeArvore(int s) {
     }
 }
 
-std::optional<int> abb::busca(int x){
-    if(x == valor)return valor;
+std::optional<abb*> abb::busca(int x){
+    if(x == valor)return this;
     if(tamanho_esq == 0 && tamanho_dir == 0){
         return {};
     }else{
@@ -154,24 +154,29 @@ abb* abb::buscaRaiz(abb* x, int val){
 }
 
 // TODO testar
-double abb::media(int x){
-    abb* raiz{buscaRaiz(this,x)};
-    std::stack<abb*> s;
-    int valor{0};
-    int quantidade{1+raiz->tamanho_esq+raiz->tamanho_dir};
-    s.push(raiz);
-    while(not s.empty()){
-        abb* atual{s.top()};
-        s.pop();
-        if(atual->dir != nullptr){
-            s.push(atual->dir);
+std::optional<double> abb::media(int x){
+    auto aux = busca(x);
+    if(aux.has_value()){
+        abb* raiz{aux.value()};
+        std::stack<abb*> s;
+        int valor{0};
+        int quantidade{1+raiz->tamanho_esq+raiz->tamanho_dir};
+        s.push(raiz);
+        while(not s.empty()){
+            abb* atual{s.top()};
+            s.pop();
+            if(atual->dir != nullptr){
+                s.push(atual->dir);
+            }
+            valor += atual->valor;
+            if(atual->esq != nullptr){
+                s.push(atual->esq);
+            }
         }
-        valor += atual->valor;
-        if(atual->esq != nullptr){
-            s.push(atual->esq);
-        }
+        return ((double)valor/(double)quantidade);
+    }else{
+        return {};
     }
-    return ((double)valor/(double)quantidade);
 }
 
 
