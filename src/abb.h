@@ -44,7 +44,7 @@ class abb {
         void formato1(int qnt_tabs, int espaco, abb *no);
         void formato2(abb *no);
 
-        abb* buscaRaiz(abb* x, int val);
+        void calcularAltura(abb* raiz);
 };
 
 #endif

@@ -65,18 +65,21 @@ int main(int argc, char** argv) {
             std::cout << "Não inseriu o " << chave << std::endl;
         }
     }
+    
 
     //std::string pre = arvore->pre_ordem();
     //std::cout << pre << std::endl; // teste de pre_ordem
 
     //arvore->imprimeArvore(1);
     //arvore->imprimeArvore(2);
-    double x = -1;
-    if(arvore->media(41)){
-        x = arvore->media(41).value();
-    }
+    // double x = -1;
+    // if(arvore->media(41)){
+    //     x = arvore->media(41).value();
+    // }
 
-    std::cout << "media: " << x << std::endl;
+    //std::cout << arvore->ehCompleta() << '\n';
+
+    //std::cout << "media: " << x << std::endl;
     
 
     return 0; // DEBUG

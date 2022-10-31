@@ -154,27 +154,7 @@ std::optional<int> abb::posicao(int x){
 }
 
 int abb::mediana(){
-    return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
-}
-
-
-// TODO testar
-abb* abb::buscaRaiz(abb* x, int val){
-    abb* no_atual{nullptr};
-    if(x != nullptr){
-        no_atual = x;
-    }
-    if(val == no_atual->valor)
-        return no_atual;
-    else if(no_atual->tamanho_esq == 0 and no_atual->tamanho_dir == 0){
-        return nullptr;
-    }else{
-        if(no_atual->valor < val){
-            return dir->buscaRaiz(no_atual, val);
-        }else{
-            return esq->buscaRaiz(no_atual, val);
-        }
-    }
+    return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2)).value();
 }
 
 // TODO testar
@@ -203,9 +183,27 @@ std::optional<double> abb::media(int x){
     }
 }
 
+void abb::calcularAltura(abb* raiz){
+    if(raiz->esq == nullptr and raiz->dir == nullptr){
+        raiz->altura = 1;
+    }
+    if(raiz->esq != nullptr and raiz->dir != nullptr){
+        calcularAltura(raiz->esq);
+        calcularAltura(raiz->dir);
+        raiz->altura += std::max(raiz->esq->altura,raiz->dir->altura);
+    }
+    else if(raiz->dir != nullptr){
+        calcularAltura(raiz->dir);
+        raiz->altura += raiz->dir->altura;
+    }else if(raiz->esq != nullptr){
+        calcularAltura(raiz->esq);
+        raiz->altura += raiz->esq->altura;
+    }
+}
 
 // TODO testar
 bool abb::ehCheia(){
+    calcularAltura(this);
     int quantidade_maxima_nos{(int) pow(2,this->altura)-1};
     std::stack<abb*> s;
     s.push(this);
@@ -226,6 +224,7 @@ bool abb::ehCheia(){
 
 // TODO testar
 bool abb::ehCompleta(){
+    calcularAltura(this);
     int quantidade_nos_internos{(int) pow(2,this->altura-1)-1};
     std::stack<abb*> s;
     s.push(this);
@@ -233,13 +232,14 @@ bool abb::ehCompleta(){
     while(not s.empty()){
         abb* atual{s.top()};
         s.pop();
-        if(atual->dir != nullptr and atual->altura != 1){
-            s.push(atual->dir);
+        if(atual->altura > 1){
             ++quantidade_nos;
         }
-        if(atual->esq != nullptr and atual->altura != 1){
+        if(atual->dir != nullptr and atual->altura > 1){
+            s.push(atual->dir);
+        }
+        if(atual->esq != nullptr and atual->altura > 1){
             s.push(atual->esq);
-            ++quantidade_nos;
         }
     }
     return quantidade_nos_internos == quantidade_nos;
