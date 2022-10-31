@@ -25,7 +25,7 @@ class abb {
         bool inserir(int x);
         bool remover(int x);
 
-        int enesimoElemento(int n);
+        std::optional<int> enesimoElemento(int n);
 
         std::optional<int> posicao(int x);
 
