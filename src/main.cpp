@@ -123,8 +123,15 @@ int main(int argc, char** argv) {
         }else if(op[0] == "MEDIANA"){
             std::cout << "A mediana é: " << arvore->mediana() << std::endl;
         }else if(op[0] == "MEDIA"){
-            std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
-            << arvore->media(stoi(op[1])) << std::endl;
+            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            double buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
+            << buscado << std::endl;
+            }else{
+                std::cout << "Não existe sub-árvore nessa árvore em que "<< op[1] <<" seja raíz." << std::endl;
+            }            
         }else if(op[0] == "CHEIA"){
 
         }else if(op[0] == "COMPLETA"){
