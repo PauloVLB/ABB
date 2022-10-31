@@ -2,25 +2,22 @@
 #define ARVORE_H
 
 #include <string>
+#include <stack>
+#include <queue>
 
 using std::string;
 
 class abb {
     private:
-        abb* esq;
-        abb* dir;
-        int tamanho_esq;
-        int tamanho_dir;
+        abb* esq = nullptr;
+        abb* dir = nullptr;
+        int tamanho_esq = 0;
+        int tamanho_dir = 0;
         int valor;
         int altura;
-
     public:
-        abb(int valor, abb* esq, abb* dir) : valor(valor), esq(esq) , dir(dir) {}
-
-        // perguntas:
-        // se pode usar bibliotecas
-        // exemplo de arquivos de entrada
-        // preferencia: arvore + metodos ou arvore & metodos?
+        abb();
+        abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
 
         int busca(int x);
         bool inserir(int x);
