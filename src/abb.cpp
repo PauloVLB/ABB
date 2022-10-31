@@ -29,6 +29,24 @@ bool abb::inserir(int x) {
     return false;
 }
 
+bool abb::remover(int x) {
+    if(x < valor) {
+        if(esq != nullptr && esq->valor == x) {
+            esq = nullptr;
+            return true;
+        }
+        return esq->remover(x);
+    }
+
+    if(x > valor) {
+        if(dir != nullptr && dir->valor == x) {
+            dir = nullptr;
+            return true;
+        }
+        return dir->remover(x);
+    }
+}
+
 string abb::pre_ordem() {
     string ordem = "";
 
