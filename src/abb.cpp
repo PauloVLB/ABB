@@ -2,6 +2,11 @@
 #include <iostream>
 
 bool abb::inserir(int x) {
+    int alt_esq = 0;
+    int alt_dir = 0;
+    if(esq != nullptr)alt_esq = esq->altura;
+    if(dir != nullptr)alt_dir = dir->altura;
+    altura = 1 + std::max(alt_esq,alt_dir);
     if(valor < x) {
         if(dir == nullptr) {
             dir = new abb(x);
