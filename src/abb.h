@@ -15,9 +15,9 @@ class abb {
         abb* dir = nullptr;
         int tamanho_esq = 0;
         int tamanho_dir = 0;
-        int valor;
         int altura;
     public:
+        int valor;
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
 
