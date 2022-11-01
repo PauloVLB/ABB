@@ -81,3 +81,41 @@ void abb::imprimeArvore(int s) {
         formato2(this);
     }
 }
+
+std::optional<int> abb::busca(int x){
+    if(x == valor)return valor;
+    if(tamanho_esq == 0 && tamanho_dir == 0){
+        return {};
+    }else{
+        if(valor < x){
+            return dir->busca(x);
+        }else{
+            return esq->busca(x);
+        }
+    }
+}
+int abb::enesimoElemento(int n){
+    if(n == tamanho_esq + 1)return valor;
+    else{
+        if(n <= tamanho_esq) return esq->enesimoElemento(n);
+        else{
+            return dir->enesimoElemento(n - tamanho_esq - 1);
+        }
+    }
+}
+std::optional<int> abb::posicao(int x){
+    if(x == valor) return tamanho_esq+1;
+    if(tamanho_esq == 0 && tamanho_dir == 0){
+        return {};
+    }else{
+        if(x < valor) return esq->posicao(x);
+        if(x > valor){
+            auto y = dir->posicao(x);
+            if(y.has_value()){
+                return tamanho_esq + 1 + y.value();
+            }else{
+                return {};
+            }
+        } 
+    }
+}
