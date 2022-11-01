@@ -4,6 +4,7 @@
 #include <string>
 #include <stack>
 #include <queue>
+#include <optional>
 
 using std::string;
 
@@ -19,13 +20,13 @@ class abb {
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
 
-        int busca(int x);
+        std::optional<int> busca(int x);
         bool inserir(int x);
         bool remover(int x);
 
-        int enisimoElemento(int n);
+        int enesimoElemento(int n);
 
-        int posicao(int x);
+        std::optional<int> posicao(int x);
 
         int mediana();
 

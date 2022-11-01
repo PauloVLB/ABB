@@ -3,22 +3,26 @@
 
 bool abb::inserir(int x) {
     if(valor < x) {
-        tamanho_dir++;
         if(dir == nullptr) {
             dir = new abb(x);
+            tamanho_dir = 1;
             return true;
         } else {
-            return dir->inserir(x);
+            bool inseriu = dir->inserir(x);
+            tamanho_dir = dir->tamanho_dir + dir->tamanho_esq + 1;
+            return inseriu;
         }
     }
 
     if(valor > x) {
-        tamanho_esq++;
         if(esq == nullptr) {
             esq = new abb(x);
+            tamanho_esq = 1;
             return true;
         } else {
-            return esq->inserir(x);
+            bool inseriu = esq->inserir(x);
+            tamanho_esq = esq->tamanho_esq + esq->tamanho_esq + 1;
+            return inseriu;
         }
     }
 
@@ -48,8 +52,9 @@ void abb::formato1(int qnt_tabs, int espaco, abb *no) {
     std::cout << string(qnt_tabs, '\t');
     std::cout.width(espaco);
     std::cout.fill('-');
-    std::cout << std::left << no->valor << std::endl;
-
+    //std::cout << std::left << no->valor << std::endl;
+    std::cout << std::left << no->valor << "(" << no->tamanho_esq << ", " << no->tamanho_dir << ")" << std::endl;
+    
     if(no->esq != nullptr) {
         formato1(qnt_tabs + 1, espaco - 6, no->esq);
     }
@@ -120,4 +125,6 @@ std::optional<int> abb::posicao(int x){
             }
         } 
     }
+
+    return {}; // warning
 }
