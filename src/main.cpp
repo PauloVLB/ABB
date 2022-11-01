@@ -52,8 +52,11 @@ int main(int argc, char** argv) {
         }
     }
 
-    std::string pre = arvore->pre_ordem();
-    std::cout << pre << std::endl; // teste de pre_ordem
+    //std::string pre = arvore->pre_ordem();
+    //std::cout << pre << std::endl; // teste de pre_ordem
+
+    arvore->imprimeArvore(1);
+    arvore->imprimeArvore(2);
 
     return 0; // DEBUG
 

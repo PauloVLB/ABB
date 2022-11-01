@@ -41,3 +41,43 @@ string abb::pre_ordem() {
 
     return ordem;
 }
+
+void abb::formato1(int qnt_tabs, int espaco, abb *no) {
+    std::cout << string(qnt_tabs, '\t');
+    std::cout.width(espaco);
+    std::cout.fill('-');
+    std::cout << std::left << no->valor << std::endl;
+
+    if(no->esq != nullptr) {
+        formato1(qnt_tabs + 1, espaco - 6, no->esq);
+    }
+
+    if(no->dir != nullptr) {
+        formato1(qnt_tabs + 1, espaco - 6, no->dir);
+    }
+}
+
+void abb::formato2(abb *no) {
+    if(no != this) std::cout << " "; 
+    std::cout << "(";
+    std::cout << no->valor;
+
+    if(no->esq != nullptr) {
+        formato2(no->esq);
+    }
+
+    if(no->dir != nullptr) {
+        formato2(no->dir);
+    }
+
+    std::cout << ")";
+}
+
+
+void abb::imprimeArvore(int s) {
+    if(s == 1) {
+        formato1(0, 36, this);
+    } else {
+        formato2(this);
+    }
+}

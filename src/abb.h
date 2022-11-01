@@ -38,6 +38,9 @@ class abb {
         string pre_ordem();
 
         void imprimeArvore(int s);
+    private:
+        void formato1(int qnt_tabs, int espaco, abb *no);
+        void formato2(abb *no);
 };
 
 #endif
