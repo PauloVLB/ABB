@@ -55,8 +55,16 @@ int main(int argc, char** argv) {
     //std::string pre = arvore->pre_ordem();
     //std::cout << pre << std::endl; // teste de pre_ordem
 
-    arvore->imprimeArvore(1);
-    arvore->imprimeArvore(2);
+    //arvore->imprimeArvore(1);
+    //arvore->imprimeArvore(2);
+    int x = -1;
+    if(arvore->busca(722).has_value()){
+        x = arvore->busca(5).has_value();
+    }
+
+    std::cout << "media: " << arvore->media(41) << std::endl;
+    std::cout << arvore->enesimoElemento(4) << "\n";
+    
 
     return 0; // DEBUG
 

@@ -5,6 +5,7 @@
 #include <stack>
 #include <queue>
 #include <optional>
+#include <math.h>
 
 using std::string;
 
@@ -42,6 +43,8 @@ class abb {
     private:
         void formato1(int qnt_tabs, int espaco, abb *no);
         void formato2(abb *no);
+
+        abb* buscaRaiz(abb* x, int val);
 };
 
 #endif

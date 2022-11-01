@@ -130,7 +130,7 @@ std::optional<int> abb::posicao(int x){
 }
 
 int abb::mediana(){
-    return enesimoElemento(ceil((1+this->tamanho_esq+this->tamanho_direita)/2));
+    return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
 }
 
 
@@ -156,7 +156,7 @@ abb* abb::buscaRaiz(abb* x, int val){
 // TODO testar
 double abb::media(int x){
     abb* raiz{buscaRaiz(this,x)};
-    stack<abb*> s;
+    std::stack<abb*> s;
     int valor{0};
     int quantidade{1+raiz->tamanho_esq+raiz->tamanho_dir};
     s.push(raiz);
@@ -171,14 +171,14 @@ double abb::media(int x){
             s.push(atual->esq);
         }
     }
-    return (valor/quantidade);
+    return ((double)valor/(double)quantidade);
 }
 
 
 // TODO testar
 bool abb::ehCheia(){
-    int quantidade_maxima_nos{pow(2,this->altura)-1};
-    stack<abb*> s;
+    int quantidade_maxima_nos{(int) pow(2,this->altura)-1};
+    std::stack<abb*> s;
     s.push(this);
     int quantidade_nos{0};
     while(not s.empty()){
@@ -197,8 +197,8 @@ bool abb::ehCheia(){
 
 // TODO testar
 bool abb::ehCompleta(){
-    int quantidade_nos_internos{pow(2,this->altura-1)-1};
-    stack<abb*> s;
+    int quantidade_nos_internos{(int) pow(2,this->altura-1)-1};
+    std::stack<abb*> s;
     s.push(this);
     int quantidade_nos{0};
     while(not s.empty()){
