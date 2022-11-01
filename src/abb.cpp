@@ -3,6 +3,7 @@
 
 bool abb::inserir(int x) {
     if(valor < x) {
+        tamanho_dir++;
         if(dir == nullptr) {
             dir = new abb(x);
             return true;
@@ -12,6 +13,7 @@ bool abb::inserir(int x) {
     }
 
     if(valor > x) {
+        tamanho_esq++;
         if(esq == nullptr) {
             esq = new abb(x);
             return true;
