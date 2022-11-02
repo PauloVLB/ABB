@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
     }
     
     arvore->imprimeArvore(1);
-    int remover = 21;
+    int remover = -32;
     bool removeu = arvore->remover(remover);
     if(removeu) {
         std::cout << "removeu " << remover << std::endl;

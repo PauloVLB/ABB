@@ -46,6 +46,7 @@ class abb {
         void formato2(abb *no);
 
         void calcularAltura(abb* raiz);
+        int qnt_nos();
 };
 
 #endif

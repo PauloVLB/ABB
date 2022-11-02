@@ -1,21 +1,16 @@
 #include "abb.h"
 #include <iostream>
 
-bool abb::inserir(int x) {
-    int alt_esq = 0;
-    int alt_dir = 0;
-    if(esq != nullptr)alt_esq = esq->altura;
-    if(dir != nullptr)alt_dir = dir->altura;
-    altura = 1 + std::max(alt_esq,alt_dir);
+bool abb::inserir(int x) { 
+    bool inseriu = false;
     if(valor < x) {
         if(dir == nullptr) {
             dir = new abb(x);
             tamanho_dir = 1;
-            return true;
+            inseriu = true;
         } else {
-            bool inseriu = dir->inserir(x);
-            tamanho_dir = dir->tamanho_dir + dir->tamanho_esq + 1;
-            return inseriu;
+            inseriu = dir->inserir(x);
+            tamanho_dir = dir->qnt_nos();
         }
     }
 
@@ -23,33 +18,68 @@ bool abb::inserir(int x) {
         if(esq == nullptr) {
             esq = new abb(x);
             tamanho_esq = 1;
-            return true;
+            inseriu = true;
         } else {
-            bool inseriu = esq->inserir(x);
-            tamanho_esq = esq->tamanho_esq + esq->tamanho_esq + 1;
-            return inseriu;
+            inseriu = esq->inserir(x);
+            tamanho_esq = esq->qnt_nos();
         }
     }
 
-    return false;
+    int alt_esq = 0;
+    int alt_dir = 0;
+    if(esq != nullptr) alt_esq = esq->altura;
+    if(dir != nullptr) alt_dir = dir->altura;
+    altura = 1 + std::max(alt_esq, alt_dir);    
+
+    return inseriu;
+}
+
+abb* abb::remover(int x, abb* sub) {
+    if(sub == nullptr) {
+        return nullptr;
+    }
+
+    if(x < sub->valor) {
+        sub->esq = remover(x, sub->esq);
+    } else if(x > sub->valor) {
+        sub->dir = remover(x, sub->dir);
+    } else {
+        if(sub->esq == nullptr) {
+            return sub->dir;
+        } else if(sub->dir == nullptr) {
+            return sub->esq;
+        } else {
+            abb* novo_no = sub->esq;
+            while(novo_no->dir != nullptr) {
+                novo_no = novo_no->dir;
+            }
+            sub->valor = novo_no->valor;
+            sub->esq = remover(sub->valor, sub->esq);
+        }   
+    }
+
+    int alt_esq = 0;
+    int alt_dir = 0;
+    if(sub->esq != nullptr) alt_esq = sub->esq->altura;
+    if(sub->dir != nullptr) alt_dir = sub->dir->altura;
+    sub->altura = 1 + std::max(alt_esq, alt_dir);
+
+    sub->tamanho_esq = 0;
+    sub->tamanho_dir = 0;
+    if(sub->esq != nullptr) sub->tamanho_esq = sub->esq->qnt_nos();
+    if(sub->dir != nullptr) sub->tamanho_dir = sub->dir->qnt_nos();
+
+    return sub;
 }
 
 bool abb::remover(int x) {
-    if(x < valor) {
-        if(esq != nullptr && esq->valor == x) {
-            esq = nullptr;
-            return true;
-        }
-        return esq->remover(x);
-    }
+    int nos_antes = qnt_nos();
+    remover(x, this);
+    return qnt_nos() < nos_antes;
+}
 
-    if(x > valor) {
-        if(dir != nullptr && dir->valor == x) {
-            dir = nullptr;
-            return true;
-        }
-        return dir->remover(x);
-    }
+int abb::qnt_nos() {
+    return tamanho_esq + tamanho_dir + 1;
 }
 
 string abb::pre_ordem() {
@@ -76,7 +106,10 @@ void abb::formato1(int qnt_tabs, int espaco, abb *no) {
     std::cout.width(espaco);
     std::cout.fill('-');
     //std::cout << std::left << no->valor << std::endl;
-    std::cout << std::left << no->valor << "(" << no->tamanho_esq << ", " << no->tamanho_dir << ")" << std::endl;
+    std::cout << std::left << no->valor 
+            << "(" << no->tamanho_esq << ", " << no->tamanho_dir << ")" 
+            << " - (" << no->altura << ")" 
+            << std::endl;
     
     if(no->esq != nullptr) {
         formato1(qnt_tabs + 1, espaco - 6, no->esq);
@@ -155,10 +188,6 @@ std::optional<int> abb::posicao(int x){
 
 std::optional<int> abb::mediana(){
     return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
-}
-
-std::optional<int> abb::mediana(){
-    return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2)).value();
 }
 
 // TODO testar
