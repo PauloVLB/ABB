@@ -29,22 +29,36 @@ bool abb::inserir(int x) {
     return false;
 }
 
-bool abb::remover(int x) {
-    if(x < valor) {
-        if(esq != nullptr && esq->valor == x) {
-            esq = nullptr;
-            return true;
-        }
-        return esq->remover(x);
+abb* abb::remover(int x, abb *sub) {
+    if(sub == nullptr) {
+        return nullptr;
     }
 
-    if(x > valor) {
-        if(dir != nullptr && dir->valor == x) {
-            dir = nullptr;
-            return true;
+    if(x < sub->valor) {
+        sub->esq = remover(x, sub->esq);
+    } else if(x > sub->valor) {
+        sub->dir = remover(x, sub->dir);
+    } else {
+        if(sub->esq == nullptr) {
+            return sub->dir;
+        } else if(sub->dir == nullptr) {
+            return sub->esq;
+        } else {
+            abb* novo_no = sub->esq;
+            while(novo_no->dir != nullptr) {
+                novo_no = novo_no->dir;
+            }
+            sub->valor = novo_no->valor;
+            sub->esq = remover(novo_no->valor, sub->esq);
         }
-        return dir->remover(x);
     }
+
+    return sub;
+}
+
+bool abb::remover(int x) {
+    remover(x, this);
+    return true;
 }
 
 string abb::pre_ordem() {
@@ -148,7 +162,7 @@ std::optional<int> abb::posicao(int x){
     return {}; // warning
 }
 
-int abb::mediana(){
+std::optional<int> abb::mediana(){
     return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
 }
 

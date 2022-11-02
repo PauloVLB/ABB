@@ -24,12 +24,13 @@ class abb {
         std::optional<abb*> busca(int x);
         bool inserir(int x);
         bool remover(int x);
+        abb* remover(int x, abb* sub);
 
         std::optional<int> enesimoElemento(int n);
 
         std::optional<int> posicao(int x);
 
-        int mediana();
+        std::optional<int> mediana();
 
         std::optional<double> media(int x);
 

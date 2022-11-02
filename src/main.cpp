@@ -66,25 +66,22 @@ int main(int argc, char** argv) {
         }
     }
 
-    //std::string pre = arvore->pre_ordem();
-    //std::cout << pre << std::endl; // teste de pre_ordem
-
-    //arvore->imprimeArvore(1);
-    //arvore->imprimeArvore(2);
-    double x = -1;
-    if(arvore->media(41)){
-        x = arvore->media(41).value();
+    arvore->imprimeArvore(1);
+    int remover = 21;
+    bool removeu = arvore->remover(remover);
+    if(removeu) {
+        std::cout << "removeu " << remover << std::endl;
+    } else {
+        std::cout << "não removeu " << remover << std::endl;
     }
-
-    std::cout << "media: " << x << std::endl;
-    
+    arvore->imprimeArvore(1);
 
     return 0; // DEBUG
 
     std::string operacao;
 
     while(getline(arquivo_operacoes, operacao)) {
-        auto op = split(operacao, ' ');
+        /*auto op = split(operacao, ' ');
         if(op[0] == "INSIRA"){
             if(arvore->inserir(std::stoi(op[1]))){
                 std::cout << op[1] << " inserido." << std::endl;
@@ -134,6 +131,6 @@ int main(int argc, char** argv) {
         }else if(op[0] == "IMPRIMA"){
 
         }
-        std::cout << operacao << '\n';
+        std::cout << operacao << '\n';*/
     }
 }
