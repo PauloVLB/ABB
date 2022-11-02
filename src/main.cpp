@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
             std::cout << "Não inseriu o " << chave << std::endl;
         }
     }
-
+    
     arvore->imprimeArvore(1);
     int remover = 21;
     bool removeu = arvore->remover(remover);
@@ -75,6 +75,20 @@ int main(int argc, char** argv) {
         std::cout << "não removeu " << remover << std::endl;
     }
     arvore->imprimeArvore(1);
+
+    //std::string pre = arvore->pre_ordem();
+    //std::cout << pre << std::endl; // teste de pre_ordem
+
+    //arvore->imprimeArvore(1);
+    //arvore->imprimeArvore(2);
+    // double x = -1;
+    // if(arvore->media(41)){
+    //     x = arvore->media(41).value();
+    // }
+
+    //std::cout << arvore->ehCompleta() << '\n';
+
+    //std::cout << "media: " << x << std::endl;
 
     return 0; // DEBUG
 
@@ -120,8 +134,15 @@ int main(int argc, char** argv) {
         }else if(op[0] == "MEDIANA"){
             std::cout << "A mediana é: " << arvore->mediana() << std::endl;
         }else if(op[0] == "MEDIA"){
-            std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
-            << arvore->media(stoi(op[1])) << std::endl;
+            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            double buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
+            << buscado << std::endl;
+            }else{
+                std::cout << "Não existe sub-árvore nessa árvore em que "<< op[1] <<" seja raíz." << std::endl;
+            }            
         }else if(op[0] == "CHEIA"){
 
         }else if(op[0] == "COMPLETA"){

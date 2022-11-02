@@ -2,6 +2,11 @@
 #include <iostream>
 
 bool abb::inserir(int x) {
+    int alt_esq = 0;
+    int alt_dir = 0;
+    if(esq != nullptr)alt_esq = esq->altura;
+    if(dir != nullptr)alt_dir = dir->altura;
+    altura = 1 + std::max(alt_esq,alt_dir);
     if(valor < x) {
         if(dir == nullptr) {
             dir = new abb(x);
@@ -29,36 +34,22 @@ bool abb::inserir(int x) {
     return false;
 }
 
-abb* abb::remover(int x, abb *sub) {
-    if(sub == nullptr) {
-        return nullptr;
-    }
-
-    if(x < sub->valor) {
-        sub->esq = remover(x, sub->esq);
-    } else if(x > sub->valor) {
-        sub->dir = remover(x, sub->dir);
-    } else {
-        if(sub->esq == nullptr) {
-            return sub->dir;
-        } else if(sub->dir == nullptr) {
-            return sub->esq;
-        } else {
-            abb* novo_no = sub->esq;
-            while(novo_no->dir != nullptr) {
-                novo_no = novo_no->dir;
-            }
-            sub->valor = novo_no->valor;
-            sub->esq = remover(novo_no->valor, sub->esq);
-        }
-    }
-
-    return sub;
-}
-
 bool abb::remover(int x) {
-    remover(x, this);
-    return true;
+    if(x < valor) {
+        if(esq != nullptr && esq->valor == x) {
+            esq = nullptr;
+            return true;
+        }
+        return esq->remover(x);
+    }
+
+    if(x > valor) {
+        if(dir != nullptr && dir->valor == x) {
+            dir = nullptr;
+            return true;
+        }
+        return dir->remover(x);
+    }
 }
 
 string abb::pre_ordem() {
@@ -166,24 +157,8 @@ std::optional<int> abb::mediana(){
     return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
 }
 
-
-// TODO testar
-abb* abb::buscaRaiz(abb* x, int val){
-    abb* no_atual{nullptr};
-    if(x != nullptr){
-        no_atual = x;
-    }
-    if(val == no_atual->valor)
-        return no_atual;
-    else if(no_atual->tamanho_esq == 0 and no_atual->tamanho_dir == 0){
-        return nullptr;
-    }else{
-        if(no_atual->valor < val){
-            return dir->buscaRaiz(no_atual, val);
-        }else{
-            return esq->buscaRaiz(no_atual, val);
-        }
-    }
+std::optional<int> abb::mediana(){
+    return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2)).value();
 }
 
 // TODO testar
@@ -212,9 +187,27 @@ std::optional<double> abb::media(int x){
     }
 }
 
+void abb::calcularAltura(abb* raiz){
+    if(raiz->esq == nullptr and raiz->dir == nullptr){
+        raiz->altura = 1;
+    }
+    if(raiz->esq != nullptr and raiz->dir != nullptr){
+        calcularAltura(raiz->esq);
+        calcularAltura(raiz->dir);
+        raiz->altura += std::max(raiz->esq->altura,raiz->dir->altura);
+    }
+    else if(raiz->dir != nullptr){
+        calcularAltura(raiz->dir);
+        raiz->altura += raiz->dir->altura;
+    }else if(raiz->esq != nullptr){
+        calcularAltura(raiz->esq);
+        raiz->altura += raiz->esq->altura;
+    }
+}
 
 // TODO testar
 bool abb::ehCheia(){
+    calcularAltura(this);
     int quantidade_maxima_nos{(int) pow(2,this->altura)-1};
     std::stack<abb*> s;
     s.push(this);
@@ -235,6 +228,7 @@ bool abb::ehCheia(){
 
 // TODO testar
 bool abb::ehCompleta(){
+    calcularAltura(this);
     int quantidade_nos_internos{(int) pow(2,this->altura-1)-1};
     std::stack<abb*> s;
     s.push(this);
@@ -242,13 +236,14 @@ bool abb::ehCompleta(){
     while(not s.empty()){
         abb* atual{s.top()};
         s.pop();
-        if(atual->dir != nullptr and atual->altura != 1){
-            s.push(atual->dir);
+        if(atual->altura > 1){
             ++quantidade_nos;
         }
-        if(atual->esq != nullptr and atual->altura != 1){
+        if(atual->dir != nullptr and atual->altura > 1){
+            s.push(atual->dir);
+        }
+        if(atual->esq != nullptr and atual->altura > 1){
             s.push(atual->esq);
-            ++quantidade_nos;
         }
     }
     return quantidade_nos_internos == quantidade_nos;
