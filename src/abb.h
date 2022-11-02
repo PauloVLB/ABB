@@ -16,7 +16,7 @@ class abb {
         int tamanho_esq = 0;
         int tamanho_dir = 0;
         int valor;
-        int altura;
+        int altura = 1;
     public:
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
@@ -44,7 +44,7 @@ class abb {
         void formato1(int qnt_tabs, int espaco, abb *no);
         void formato2(abb *no);
 
-        abb* buscaRaiz(abb* x, int val);
+        void calcularAltura(abb* raiz);
 };
 
 #endif

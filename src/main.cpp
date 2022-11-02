@@ -57,13 +57,15 @@ int main(int argc, char** argv) {
 
     //arvore->imprimeArvore(1);
     //arvore->imprimeArvore(2);
-    double x = -1;
-    if(arvore->media(41)){
-        x = arvore->media(41).value();
-    }
+    // double x = -1;
+    // if(arvore->media(41)){
+    //     x = arvore->media(41).value();
+    // }
 
-    std::cout << "media: " << x << std::endl;
-    std::cout << arvore->enesimoElemento(4) << "\n";
+    std::cout << arvore->ehCompleta() << '\n';
+
+    // std::cout << "media: " << x << std::endl;
+    // std::cout << arvore->enesimoElemento(4) << "\n";
     
 
     return 0; // DEBUG
