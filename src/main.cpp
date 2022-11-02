@@ -3,6 +3,20 @@
 #include <sstream>
 #include "abb.h"
 
+std::vector<std::string> split(const std::string & input_str, char delimiter){
+    // Store the tokens.
+    std::vector<std::string> tokens;
+
+    // read file line by line
+    std::istringstream iss;
+    iss.str(input_str);
+    std::string token;
+    while ( std::getline( iss >> std::ws, token, delimiter ) )
+        tokens.push_back( token );
+
+    return tokens;
+}
+
 int main(int argc, char** argv) {
     if(argc != 3) {
         std::cerr << "Você deve passar APENAS dois arquivos como parâmetro.\n";
@@ -64,8 +78,7 @@ int main(int argc, char** argv) {
 
     std::cout << arvore->ehCompleta() << '\n';
 
-    // std::cout << "media: " << x << std::endl;
-    // std::cout << arvore->enesimoElemento(4) << "\n";
+    std::cout << "media: " << x << std::endl;
     
 
     return 0; // DEBUG
@@ -73,6 +86,63 @@ int main(int argc, char** argv) {
     std::string operacao;
 
     while(getline(arquivo_operacoes, operacao)) {
+        auto op = split(operacao, ' ');
+        if(op[0] == "INSIRA"){
+            if(arvore->inserir(std::stoi(op[1]))){
+                std::cout << op[1] << " inserido." << std::endl;
+            }else{
+                std::cout << op[1] << " já existe na arvore." << std::endl;
+            }
+        }else if(op[0] == "BUSCAR"){
+            auto buscando  = arvore->busca(stoi(op[1]));
+            abb* buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "Elemento " << buscado->valor << " encontrado na árvore." << std::endl;
+            }else{
+                std::cout << "Elemento " << op[1] << " não encontrado na árvore." << std::endl;
+            }
+        }else if(op[0] == "REMOVA"){
+
+        }else if(op[0] == "ENESIMO"){
+            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            int buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "O " << op[1] << "º elemento é: " << buscado << std::endl;
+            }else{
+                std::cout << "Índice do elemento além do alcance da árvore." << std::endl;
+            }
+        }else if(op[0] == "POSICAO"){
+            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            int buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "O elemento " << op[1] << "está na posição: " << buscado << std::endl;
+            }else{
+                std::cout << "Elemento não encontrado na árvore." << std::endl;
+            }
+        }else if(op[0] == "MEDIANA"){
+            std::cout << "A mediana é: " << arvore->mediana() << std::endl;
+        }else if(op[0] == "MEDIA"){
+            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            double buscado;
+            if(buscando.has_value()){
+                buscado = buscando.value();
+                std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
+            << buscado << std::endl;
+            }else{
+                std::cout << "Não existe sub-árvore nessa árvore em que "<< op[1] <<" seja raíz." << std::endl;
+            }            
+        }else if(op[0] == "CHEIA"){
+
+        }else if(op[0] == "COMPLETA"){
+
+        }else if(op[0] == "PREORDEM"){
+
+        }else if(op[0] == "IMPRIMA"){
+
+        }
         std::cout << operacao << '\n';
     }
 }

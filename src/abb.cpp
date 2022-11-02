@@ -29,6 +29,24 @@ bool abb::inserir(int x) {
     return false;
 }
 
+bool abb::remover(int x) {
+    if(x < valor) {
+        if(esq != nullptr && esq->valor == x) {
+            esq = nullptr;
+            return true;
+        }
+        return esq->remover(x);
+    }
+
+    if(x > valor) {
+        if(dir != nullptr && dir->valor == x) {
+            dir = nullptr;
+            return true;
+        }
+        return dir->remover(x);
+    }
+}
+
 string abb::pre_ordem() {
     string ordem = "";
 
@@ -101,7 +119,8 @@ std::optional<abb*> abb::busca(int x){
         }
     }
 }
-int abb::enesimoElemento(int n){
+std::optional<int> abb::enesimoElemento(int n){
+    if(n < 1 || n > (1 + tamanho_esq + tamanho_dir)) return {};
     if(n == tamanho_esq + 1)return valor;
     else{
         if(n <= tamanho_esq) return esq->enesimoElemento(n);

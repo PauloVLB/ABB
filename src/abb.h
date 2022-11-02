@@ -15,9 +15,14 @@ class abb {
         abb* dir = nullptr;
         int tamanho_esq = 0;
         int tamanho_dir = 0;
+<<<<<<< HEAD
         int valor;
         int altura = 1;
+=======
+        int altura;
+>>>>>>> 015f0864dbe18c8eeab815129044c1c925c71481
     public:
+        int valor;
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
 
@@ -25,7 +30,7 @@ class abb {
         bool inserir(int x);
         bool remover(int x);
 
-        int enesimoElemento(int n);
+        std::optional<int> enesimoElemento(int n);
 
         std::optional<int> posicao(int x);
 
