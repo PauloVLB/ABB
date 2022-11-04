@@ -1,7 +1,36 @@
-Na teoria inseriu o 32
-Na teoria inseriu o 13
-Na teoria inseriu o 5
-Na teoria inseriu o 41
-Na teoria inseriu o 20
-Na teoria inseriu o 60
-Na teoria inseriu o 36
+A árvore não é cheia
+A árvore é completa
+O 3º elemento é: 20
+36 inserido.
+A árvore é cheia
+32 13 5 20 41 36 60 
+32----------------------------------(3, 3) - (3)
+	13----------------------------(1, 1) - (2)
+		5-----------------------(0, 0) - (1)
+		20----------------------(0, 0) - (1)
+	41----------------------------(1, 1) - (2)
+		36----------------------(0, 0) - (1)
+		60----------------------(0, 0) - (1)
+
+(32 (13 (5) (20)) (41 (36) (60)))
+50 não está na árvore, não pode ser removido
+15 inserido.
+39 inserido.
+32 removido
+20----------------------------------(3, 4) - (4)
+	13----------------------------(1, 1) - (2)
+		5-----------------------(0, 0) - (1)
+		15----------------------(0, 0) - (1)
+	41----------------------------(2, 1) - (3)
+		36----------------------(0, 1) - (2)
+			39----------------(0, 0) - (1)
+		60----------------------(0, 0) - (1)
+
+O elemento 15 está na posição: 3
+39 já existe na arvore.
+O 5º elemento é: 36
+A mediana é: 20
+Não existe sub-árvore nessa árvore em que 20 seja raíz.
+Elemento 36 encontrado na árvore.
+25 inserido.
+A mediana é: 25

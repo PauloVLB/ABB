@@ -236,44 +236,10 @@ void abb::calcularAltura(abb* raiz){
 
 // TODO testar
 bool abb::ehCheia(){
-    calcularAltura(this);
-    int quantidade_maxima_nos{(int) pow(2,this->altura)-1};
-    std::stack<abb*> s;
-    s.push(this);
-    int quantidade_nos{0};
-    while(not s.empty()){
-        abb* atual{s.top()};
-        s.pop();
-        ++quantidade_nos;
-        if(atual->dir != nullptr){
-            s.push(atual->dir);
-        }
-        if(atual->esq != nullptr){
-            s.push(atual->esq);
-        }
-    }
-    return quantidade_maxima_nos == quantidade_nos;
+    return qnt_nos() == pow(2, altura) - 1;
 }
 
 // TODO testar
 bool abb::ehCompleta(){
-    calcularAltura(this);
-    int quantidade_nos_internos{(int) pow(2,this->altura-1)-1};
-    std::stack<abb*> s;
-    s.push(this);
-    int quantidade_nos{0};
-    while(not s.empty()){
-        abb* atual{s.top()};
-        s.pop();
-        if(atual->altura > 1){
-            ++quantidade_nos;
-        }
-        if(atual->dir != nullptr and atual->altura > 1){
-            s.push(atual->dir);
-        }
-        if(atual->esq != nullptr and atual->altura > 1){
-            s.push(atual->esq);
-        }
-    }
-    return quantidade_nos_internos == quantidade_nos;
+    return qnt_nos() >= pow(2, altura - 1);
 }

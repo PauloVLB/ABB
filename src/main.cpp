@@ -56,51 +56,20 @@ int main(int argc, char** argv) {
         if(eh_raiz) {
             arvore = new abb(chave); // nova raiz
             eh_raiz = 0;
-            std::cout << "Na teoria inseriu o " << chave << std::endl;
             continue;
         }
-        if(arvore->inserir(chave)) {
-            std::cout << "Na teoria inseriu o " << chave << std::endl;
-        } else {
-            std::cout << "Não inseriu o " << chave << std::endl;
-        }
+        arvore->inserir(chave);
     }
-    
-    arvore->imprimeArvore(1);
-    int remover = -32;
-    bool removeu = arvore->remover(remover);
-    if(removeu) {
-        std::cout << "removeu " << remover << std::endl;
-    } else {
-        std::cout << "não removeu " << remover << std::endl;
-    }
-    arvore->imprimeArvore(1);
-
-    //std::string pre = arvore->pre_ordem();
-    //std::cout << pre << std::endl; // teste de pre_ordem
-
-    //arvore->imprimeArvore(1);
-    //arvore->imprimeArvore(2);
-    // double x = -1;
-    // if(arvore->media(41)){
-    //     x = arvore->media(41).value();
-    // }
-
-    //std::cout << arvore->ehCompleta() << '\n';
-
-    //std::cout << "media: " << x << std::endl;
-
-    return 0; // DEBUG
 
     std::string operacao;
 
     while(getline(arquivo_operacoes, operacao)) {
-        /*auto op = split(operacao, ' ');
+        auto op = split(operacao, ' ');
         if(op[0] == "INSIRA"){
             if(arvore->inserir(std::stoi(op[1]))){
-                std::cout << op[1] << " inserido." << std::endl;
+                std::cout << stoi(op[1]) << " inserido." << std::endl;
             }else{
-                std::cout << op[1] << " já existe na arvore." << std::endl;
+                std::cout << stoi(op[1]) << " já existe na arvore." << std::endl;
             }
         }else if(op[0] == "BUSCAR"){
             auto buscando  = arvore->busca(stoi(op[1]));
@@ -109,49 +78,63 @@ int main(int argc, char** argv) {
                 buscado = buscando.value();
                 std::cout << "Elemento " << buscado->valor << " encontrado na árvore." << std::endl;
             }else{
-                std::cout << "Elemento " << op[1] << " não encontrado na árvore." << std::endl;
+                std::cout << "Elemento " << stoi(op[1]) << " não encontrado na árvore." << std::endl;
             }
         }else if(op[0] == "REMOVA"){
+            bool removeu = arvore->remover(stoi(op[1]));
 
+            if(removeu) {
+                std::cout << stoi(op[1]) << " removido" << std::endl;
+            } else {
+                std::cout << stoi(op[1]) << " não está na árvore, não pode ser removido" << std::endl;
+            }
         }else if(op[0] == "ENESIMO"){
             auto buscando  = arvore->enesimoElemento(stoi(op[1]));
             int buscado;
             if(buscando.has_value()){
                 buscado = buscando.value();
-                std::cout << "O " << op[1] << "º elemento é: " << buscado << std::endl;
+                std::cout << "O " << stoi(op[1]) << "º elemento é: " << buscado << std::endl;
             }else{
                 std::cout << "Índice do elemento além do alcance da árvore." << std::endl;
             }
         }else if(op[0] == "POSICAO"){
-            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            auto buscando  = arvore->posicao(stoi(op[1]));
             int buscado;
             if(buscando.has_value()){
                 buscado = buscando.value();
-                std::cout << "O elemento " << op[1] << "está na posição: " << buscado << std::endl;
+                std::cout << "O elemento " << stoi(op[1]) << " está na posição: " << buscado << std::endl;
             }else{
                 std::cout << "Elemento não encontrado na árvore." << std::endl;
             }
         }else if(op[0] == "MEDIANA"){
-            std::cout << "A mediana é: " << arvore->mediana() << std::endl;
+            std::cout << "A mediana é: " << arvore->mediana().value() << std::endl;
         }else if(op[0] == "MEDIA"){
             auto buscando  = arvore->enesimoElemento(stoi(op[1]));
             double buscado;
             if(buscando.has_value()){
                 buscado = buscando.value();
-                std::cout << "A média dos elementos da sub-árvore em que "<<op[1]<< " é raiz vale: " 
+                std::cout << "A média dos elementos da sub-árvore em que "<< stoi(op[1]) << " é raiz vale: " 
             << buscado << std::endl;
             }else{
-                std::cout << "Não existe sub-árvore nessa árvore em que "<< op[1] <<" seja raíz." << std::endl;
+                std::cout << "Não existe sub-árvore nessa árvore em que "<< stoi(op[1]) <<" seja raíz." << std::endl;
             }            
         }else if(op[0] == "CHEIA"){
-
+            if(arvore->ehCheia()) {
+                std::cout << "A árvore é cheia" << std::endl;
+            } else {
+                std::cout << "A árvore não é cheia" << std::endl;
+            }
         }else if(op[0] == "COMPLETA"){
-
+            if(arvore->ehCompleta()) {
+                std::cout << "A árvore é completa" << std::endl;
+            } else {
+                std::cout << "A árvore não é completa" << std::endl;
+            }
         }else if(op[0] == "PREORDEM"){
-
+            std::cout << arvore->pre_ordem() << std::endl;
         }else if(op[0] == "IMPRIMA"){
-
+            arvore->imprimeArvore(stoi(op[1]));
+            std::cout << std::endl;
         }
-        std::cout << operacao << '\n';*/
     }
 }
