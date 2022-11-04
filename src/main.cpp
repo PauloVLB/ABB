@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
         }else if(op[0] == "MEDIANA"){
             std::cout << "A mediana é: " << arvore->mediana().value() << std::endl;
         }else if(op[0] == "MEDIA"){
-            auto buscando  = arvore->enesimoElemento(stoi(op[1]));
+            auto buscando  = arvore->media(stoi(op[1]));
             double buscado;
             if(buscando.has_value()){
                 buscado = buscando.value();

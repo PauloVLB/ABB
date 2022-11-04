@@ -190,7 +190,6 @@ std::optional<int> abb::mediana(){
     return enesimoElemento(ceil((double)(1+this->tamanho_esq+this->tamanho_dir)/(double)2));
 }
 
-// TODO testar
 std::optional<double> abb::media(int x){
     auto aux = busca(x);
     if(aux.has_value()){
@@ -213,24 +212,6 @@ std::optional<double> abb::media(int x){
         return ((double)valor/(double)quantidade);
     }else{
         return {};
-    }
-}
-
-void abb::calcularAltura(abb* raiz){
-    if(raiz->esq == nullptr and raiz->dir == nullptr){
-        raiz->altura = 1;
-    }
-    if(raiz->esq != nullptr and raiz->dir != nullptr){
-        calcularAltura(raiz->esq);
-        calcularAltura(raiz->dir);
-        raiz->altura += std::max(raiz->esq->altura,raiz->dir->altura);
-    }
-    else if(raiz->dir != nullptr){
-        calcularAltura(raiz->dir);
-        raiz->altura += raiz->dir->altura;
-    }else if(raiz->esq != nullptr){
-        calcularAltura(raiz->esq);
-        raiz->altura += raiz->esq->altura;
     }
 }
 

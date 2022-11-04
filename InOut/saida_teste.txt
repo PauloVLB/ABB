@@ -30,7 +30,7 @@ O elemento 15 está na posição: 3
 39 já existe na arvore.
 O 5º elemento é: 36
 A mediana é: 20
-Não existe sub-árvore nessa árvore em que 20 seja raíz.
+A média dos elementos da sub-árvore em que 20 é raiz vale: 28.625
 Elemento 36 encontrado na árvore.
 25 inserido.
 A mediana é: 25
