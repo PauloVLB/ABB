@@ -174,13 +174,19 @@ std::optional<int> abb::posicao(int x){
     if(tamanho_esq == 0 && tamanho_dir == 0){
         return {};
     }else{
-        if(x < valor) return esq->posicao(x);
+        if(x < valor){
+            if(tamanho_esq == 0) return {};
+            else return esq->busca(x);
+        }
         if(x > valor){
-            auto y = dir->posicao(x);
-            if(y.has_value()){
-                return tamanho_esq + 1 + y.value();
-            }else{
-                return {};
+            if(tamanho_dir == 0) return {};
+            else{
+                auto y = dir->posicao(x);
+                if(y.has_value()){
+                    return tamanho_esq + 1 + y.value();
+                }else{
+                    return {};
+                }
             }
         } 
     }
