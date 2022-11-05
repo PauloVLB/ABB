@@ -147,13 +147,15 @@ void abb::imprimeArvore(int s) {
 
 std::optional<abb*> abb::busca(int x){
     if(x == valor)return this;
-    if(tamanho_esq == 0 && tamanho_dir == 0){
+    if(altura = 1){
         return {};
     }else{
         if(valor < x){
-            return dir->busca(x);
+            if(tamanho_dir == 0) return {};
+            else return dir->busca(x);
         }else{
-            return esq->busca(x);
+            if(tamanho_esq == 0) return {};
+            else return esq->busca(x);
         }
     }
 }
