@@ -82,6 +82,10 @@ int abb::qnt_nos() {
     return tamanho_esq + tamanho_dir + 1;
 }
 
+int abb::getValor(){
+    return valor;
+}
+
 string abb::pre_ordem() {
     string ordem = "";
 
@@ -92,7 +96,7 @@ string abb::pre_ordem() {
     while(!pilha.empty()) {
         abb topo = pilha.top(); pilha.pop();
 
-        ordem += std::to_string(topo.valor) + " ";
+        ordem += std::to_string(topo.getValor()) + " ";
 
         if(topo.dir != nullptr) pilha.push(*topo.dir);
         if(topo.esq != nullptr) pilha.push(*topo.esq);
