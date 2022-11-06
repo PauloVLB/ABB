@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
             abb* buscado;
             if(buscando.has_value()){
                 buscado = buscando.value();
-                std::cout << "Elemento " << buscado->valor << " encontrado na árvore." << std::endl;
+                std::cout << "Elemento " << buscado->getValor() << " encontrado na árvore." << std::endl;
             }else{
                 std::cout << "Elemento " << stoi(op[1]) << " não encontrado na árvore." << std::endl;
             }

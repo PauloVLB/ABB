@@ -82,6 +82,9 @@ int abb::qnt_nos() {
     return tamanho_esq + tamanho_dir + 1;
 }
 
+int abb::getValor(){
+    return valor;
+}
 string abb::pre_ordem() {
     string ordem = "";
 
@@ -92,7 +95,7 @@ string abb::pre_ordem() {
     while(!pilha.empty()) {
         abb topo = pilha.top(); pilha.pop();
 
-        ordem += std::to_string(topo.valor) + " ";
+        ordem += std::to_string(topo.getValor()) + " ";
 
         if(topo.dir != nullptr) pilha.push(*topo.dir);
         if(topo.esq != nullptr) pilha.push(*topo.esq);
@@ -147,13 +150,15 @@ void abb::imprimeArvore(int s) {
 
 std::optional<abb*> abb::busca(int x){
     if(x == valor)return this;
-    if(tamanho_esq == 0 && tamanho_dir == 0){
+    if(altura = 1){
         return {};
     }else{
         if(valor < x){
-            return dir->busca(x);
+            if(tamanho_dir == 0) return {};
+            else return dir->busca(x);
         }else{
-            return esq->busca(x);
+            if(tamanho_esq == 0) return {};
+            else return esq->busca(x);
         }
     }
 }
@@ -172,13 +177,19 @@ std::optional<int> abb::posicao(int x){
     if(tamanho_esq == 0 && tamanho_dir == 0){
         return {};
     }else{
-        if(x < valor) return esq->posicao(x);
+        if(x < valor){
+            if(tamanho_esq == 0) return {};
+            else return esq->posicao(x);
+        }
         if(x > valor){
-            auto y = dir->posicao(x);
-            if(y.has_value()){
-                return tamanho_esq + 1 + y.value();
-            }else{
-                return {};
+            if(tamanho_dir == 0) return {};
+            else{
+                auto y = dir->posicao(x);
+                if(y.has_value()){
+                    return tamanho_esq + 1 + y.value();
+                }else{
+                    return {};
+                }
             }
         } 
     }

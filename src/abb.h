@@ -15,11 +15,12 @@ class abb {
         abb* dir = nullptr;
         int tamanho_esq = 0;
         int tamanho_dir = 0;
-    public:
         int valor;
         int altura = 1;
+    public:
         abb();
         abb(int valor, abb* esq = nullptr, abb* dir = nullptr) : valor(valor), esq(esq) , dir(dir) {}
+        int getValor();
 
         std::optional<abb*> busca(int x);
         bool inserir(int x);
