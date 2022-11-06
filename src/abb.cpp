@@ -85,10 +85,7 @@ int abb::qnt_nos() {
 int abb::getValor(){
     return valor;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 59ddfd04713b2d51ac4fbc9d2f183db183da8910
 string abb::pre_ordem() {
     string ordem = "";
 
